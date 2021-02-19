@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Task 2</title>
+  </head>
+  <body>
+    <button class="btn btn-drk" id="getAPI">Get Data</button>
+    <section>
+      <div>
+        <div id="output"></div>
+      </div>
+    </section>
+
+    <style>
+      ul {
+        margin: 4rem;
+        padding-left: 1.2rem;
+      }
+
+      ul li {
+        position: relative;
+        list-style-type: none;
+        padding-left: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      ul li:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: -0.2rem;
+        display: block;
+
+        transform-origin: bottom left;
+        transform: rotate(45deg);
+        width: 0.5rem;
+        height: 1.5rem;
+        border-width: 0 0.2rem 0.2rem 0;
+        border-style: solid;
+        border-color: orangered;
+      }
+
+      .btn,
+      .btn:link,
+      .btn:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem;
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all 0.2s;
+        position: relative;
+        font-size: inherit;
+
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 1rem 2rem rgba(#000, 0.2);
+      }
+
+      .btn:active,
+      .btn:focus {
+        outline: none;
+        transform: translateY(-1px);
+        box-shadow: 0 0.5rem 1rem rgba(#000, 0.2);
+      }
+
+      .btn-drk {
+        background-color: #ec4646;
+        color: #f7f7e8;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 62.5%;
+      }
+
+      body {
+        font-size: 1.6rem;
+        background-color: #efefef;
+        color: #324047;
+      }
+
+      html,
+      body,
+      section {
+        height: 100%;
+      }
+
+      section {
+        max-width: 40rem;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+      }
+
+      div {
+        margin: auto;
+      }
+    </style>
+
+    <script>
+      document.getElementById('getAPI').addEventListener('click', getAPI);
+
+      function getAPI() {
+        fetch('https://jsonplaceholder.typicode.com/users')
+          .then((res) => res.json())
+          .then((data) => {
+            let output = '<h2>Example:</h2>';
+            console.log(data);
+            data.forEach(function (post) {
+              output += `
+
+                <ul>
+                  <li>ID: ${post.id}</li>
+                  <li>Name: ${post.name}</li>
+                  <li>Username: ${post.username}</li>
+                  <li>Email: ${post.email}</li>
+                  <li>Address: ${post.address}</li>
+                  <li>Street: ${post.address.street}</li>
+                  <li>Suite: ${post.address.suite}</li>
+                  <li>City: ${post.address.city}</li>
+                  <li>Zipcode: ${post.address.zipcode}</li>
+                  <li>Geo: ${post.address.geo}</li>
+                  <li>Lat: ${post.address.geo.lat}</li>
+                  <li>Language: ${post.address.geo.lng}</li>
+                  <li>Phone: ${post.phone}</li>
+                  <li>Website: ${post.website}</li>
+                  <li>Company: ${post.company}</li>
+                  <li>Company name: ${post.company.name}</li>
+                  <li>Company slogan: ${post.company.catchPhrase}</li>
+                  <li>Company bs: ${post.company.bs}</li>
+
+
+                </ul>
+
+              `;
+            });
+            document.getElementById('output').innerHTML = output;
+          });
+      }
+    </script>
+  </body>
+</html>
